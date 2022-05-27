@@ -26,15 +26,15 @@ export class GamesRepository implements IGamesRepository {
 
   async findUsersByGameId(id: string): Promise<User[]> {
     return this.repository
-      .createQueryBuilder()
-      .innerJoinAndSelect("games.users", "users")
-      .getOne()
-      .then((game) => {
-        if(!game) {
-          throw new Error("Game not found");
-        }
-        return game.users;
-      })
+    .createQueryBuilder("games")
+    .innerJoinAndSelect("games.users", "users")
+    .getOne()
+    .then((game) => {
+      if (!game) {
+        throw new Error("Game not found");
+      }
+      return game.users;
+    });
       // Complete usando query builder
   }
 }
